@@ -236,7 +236,11 @@
         <form class="task-form" id="task-form">
             <input type="text" class="task-input" id="task-input" placeholder="Add a new task..." required>
             <select class="priority-select" id="priority-select">
-                
+                <option value="critical">Critical</option>
+                <option value="high">High</option>
+                <option value="medium" selected>Medium</option>
+                <option value="low">Low</option>
+            </select>
             <button type="submit">Add Task</button>
         </form>
         
