@@ -421,7 +421,7 @@
                     const formattedDate = formatDate(date);
                     
                     const taskElement = document.createElement('li');
-                    taskElement.classList.add('task-item');
+                    taskElement.classList.add('task-item', `priority-${task.priority}`);
                     if (task.completed) {
                         taskElement.classList.add('completed');
                     }
