@@ -15,6 +15,23 @@
             --text-color: #212529;
             --text-light: #6c757d;
             --border-color: #dee2e6;
+            
+            /* Enhanced priority colors */
+            --priority-high: #e63946;
+            --priority-high-bg: #ffd8dc;
+            --priority-high-border: #ff8c98;
+            
+            --priority-medium: #ff9900;
+            --priority-medium-bg: #fff4df;
+            --priority-medium-border: #ffcb85;
+            
+            --priority-low: #20bf55;
+            --priority-low-bg: #e3f8e9;
+            --priority-low-border: #8ae6a7;
+            
+            --critical-color: #d00000;
+            --critical-bg: #ffe5e5;
+            --critical-border: #ffb3b3;
         }
         
         * {
@@ -53,11 +70,17 @@
         
         .task-form {
             display: flex;
+            flex-direction: column;
             margin-bottom: 2rem;
             background-color: var(--card-color);
             padding: 1rem;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-row {
+            display: flex;
+            margin-bottom: 1rem;
         }
         
         .task-input {
@@ -67,6 +90,38 @@
             border-radius: 4px;
             font-size: 1rem;
             margin-right: 0.5rem;
+        }
+        
+        .priority-select {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-right: 0.5rem;
+            width: 120px;
+            cursor: pointer;
+        }
+        
+        /* Priority select styling */
+        .priority-select option[value="critical"] {
+            background-color: var(--critical-bg);
+            color: var(--critical-color);
+            font-weight: bold;
+        }
+        
+        .priority-select option[value="high"] {
+            background-color: var(--priority-high-bg);
+            color: var(--priority-high);
+        }
+        
+        .priority-select option[value="medium"] {
+            background-color: var(--priority-medium-bg);
+            color: var(--priority-medium);
+        }
+        
+        .priority-select option[value="low"] {
+            background-color: var(--priority-low-bg);
+            color: var(--priority-low);
         }
         
         .task-form button, .filters button {
@@ -135,11 +190,34 @@
             margin-bottom: 0.75rem;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
         }
         
         .task-item:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Priority styling for task items */
+        .task-item.priority-critical {
+            border-left: 5px solid var(--critical-color);
+            background-color: var(--critical-bg);
+        }
+        
+        .task-item.priority-high {
+            border-left: 5px solid var(--priority-high);
+            background-color: var(--priority-high-bg);
+        }
+        
+        .task-item.priority-medium {
+            border-left: 5px solid var(--priority-medium);
+            background-color: var(--priority-medium-bg);
+        }
+        
+        .task-item.priority-low {
+            border-left: 5px solid var(--priority-low);
+            background-color: var(--priority-low-bg);
         }
         
         .task-checkbox {
@@ -150,9 +228,79 @@
             accent-color: var(--completed-color);
         }
         
-        .task-text {
+        .task-content {
             flex: 1;
+        }
+        
+        .task-text {
             font-size: 1.1rem;
+        }
+        
+        .task-meta {
+            display: flex;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            color: var(--text-light);
+        }
+        
+        .task-priority {
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .priority-label-critical {
+            background-color: var(--critical-color);
+            color: white;
+        }
+        
+        .priority-label-high {
+            background-color: var(--priority-high);
+            color: white;
+        }
+        
+        .priority-label-medium {
+            background-color: var(--priority-medium);
+            color: white;
+        }
+        
+        .priority-label-low {
+            background-color: var(--priority-low);
+            color: white;
+        }
+        
+        .priority-dot {
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        
+        .dot-critical {
+            background-color: var(--critical-color);
+        }
+        
+        .dot-high {
+            background-color: var(--priority-high);
+        }
+        
+        .dot-medium {
+            background-color: var(--priority-medium);
+        }
+        
+        .dot-low {
+            background-color: var(--priority-low);
+        }
+        
+        .task-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-right: 1rem;
         }
         
         .task-item.completed .task-text {
@@ -160,10 +308,8 @@
             color: var(--text-light);
         }
         
-        .task-date {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-right: 1rem;
+        .task-item.completed {
+            opacity: 0.8;
         }
         
         .task-delete {
@@ -194,6 +340,24 @@
             color: var(--text-light);
         }
         
+        .priority-legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+        
         footer {
             margin-top: 2rem;
             text-align: center;
@@ -207,13 +371,14 @@
                 padding: 1rem;
             }
             
-            .task-form {
+            .form-row {
                 flex-direction: column;
             }
             
-            .task-input {
+            .task-input, .priority-select {
                 margin-right: 0;
                 margin-bottom: 0.5rem;
+                width: 100%;
             }
             
             .filters {
@@ -234,15 +399,43 @@
         </header>
         
         <form class="task-form" id="task-form">
-            <input type="text" class="task-input" id="task-input" placeholder="Add a new task..." required>
-            <button type="submit">Add Task</button>
+            <div class="form-row">
+                <input type="text" class="task-input" id="task-input" placeholder="Add a new task..." required>
+                <select class="priority-select" id="priority-select">
+                    <option value="critical">Critical</option>
+                    <option value="high">High</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <button type="submit">Add Task</button>
+            </div>
         </form>
+        
+        <div class="priority-legend">
+            <div class="legend-item">
+                <span class="priority-dot dot-critical"></span>
+                <span>Critical</span>
+            </div>
+            <div class="legend-item">
+                <span class="priority-dot dot-high"></span>
+                <span>High</span>
+            </div>
+            <div class="legend-item">
+                <span class="priority-dot dot-medium"></span>
+                <span>Medium</span>
+            </div>
+            <div class="legend-item">
+                <span class="priority-dot dot-low"></span>
+                <span>Low</span>
+            </div>
+        </div>
         
         <div class="filters">
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="active">Active</button>
                 <button class="filter-btn" data-filter="completed">Completed</button>
+                <button class="filter-btn" data-filter="priority">By Priority</button>
             </div>
             <button class="clear-completed">Clear completed</button>
         </div>
@@ -268,6 +461,7 @@
             // DOM Elements
             const taskForm = document.getElementById('task-form');
             const taskInput = document.getElementById('task-input');
+            const prioritySelect = document.getElementById('priority-select');
             const taskList = document.getElementById('task-list');
             const taskCounter = document.getElementById('task-counter');
             const filterButtons = document.querySelectorAll('.filter-btn');
@@ -298,7 +492,8 @@
                     id: Date.now().toString(),
                     text: taskText,
                     completed: false,
-                    date: new Date().toISOString()
+                    date: new Date().toISOString(),
+                    priority: prioritySelect.value
                 };
                 
                 tasks.push(newTask);
@@ -307,6 +502,7 @@
                 updateCounter();
                 
                 taskInput.value = '';
+                prioritySelect.value = 'medium'; // Reset to default
                 taskInput.focus();
             }
             
@@ -371,6 +567,12 @@
                     filteredTasks = tasks.filter(task => !task.completed);
                 } else if (currentFilter === 'completed') {
                     filteredTasks = tasks.filter(task => task.completed);
+                } else if (currentFilter === 'priority') {
+                    // Sort by priority (critical -> high -> medium -> low)
+                    filteredTasks = [...tasks].sort((a, b) => {
+                        const priorityOrder = { critical: 1, high: 2, medium: 3, low: 4 };
+                        return priorityOrder[a.priority] - priorityOrder[b.priority];
+                    });
                 }
                 
                 taskList.innerHTML = '';
@@ -389,18 +591,57 @@
                     const formattedDate = formatDate(date);
                     
                     const taskElement = document.createElement('li');
-                    taskElement.classList.add('task-item');
+                    taskElement.classList.add('task-item', `priority-${task.priority}`);
                     if (task.completed) {
                         taskElement.classList.add('completed');
                     }
                     taskElement.dataset.id = task.id;
                     
-                    taskElement.innerHTML = `
-                        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
-                        <span class="task-text">${escapeHTML(task.text)}</span>
-                        <span class="task-date">${formattedDate}</span>
-                        <button class="task-delete">×</button>
-                    `;
+                    const taskContent = document.createElement('div');
+                    taskContent.classList.add('task-content');
+                    
+                    // Task text
+                    const taskText = document.createElement('div');
+                    taskText.classList.add('task-text');
+                    taskText.textContent = task.text;
+                    taskContent.appendChild(taskText);
+                    
+                    // Task metadata
+                    const taskMeta = document.createElement('div');
+                    taskMeta.classList.add('task-meta');
+                    
+                    // Priority label
+                    const priorityLabel = document.createElement('span');
+                    priorityLabel.classList.add('task-priority', `priority-label-${task.priority}`);
+                    
+                    // Capitalize first letter of priority
+                    const priorityText = task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
+                    priorityLabel.textContent = priorityText;
+                    taskMeta.appendChild(priorityLabel);
+                    
+                    // Date
+                    const dateSpan = document.createElement('span');
+                    dateSpan.classList.add('task-date');
+                    dateSpan.textContent = formattedDate;
+                    taskMeta.appendChild(dateSpan);
+                    
+                    taskContent.appendChild(taskMeta);
+                    
+                    // Add checkbox
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.classList.add('task-checkbox');
+                    checkbox.checked = task.completed;
+                    
+                    // Add delete button
+                    const deleteButton = document.createElement('button');
+                    deleteButton.classList.add('task-delete');
+                    deleteButton.textContent = '×';
+                    
+                    // Assemble task item
+                    taskElement.appendChild(checkbox);
+                    taskElement.appendChild(taskContent);
+                    taskElement.appendChild(deleteButton);
                     
                     taskList.appendChild(taskElement);
                 });
