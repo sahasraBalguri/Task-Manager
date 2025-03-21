@@ -398,6 +398,11 @@
                     filteredTasks = tasks.filter(task => !task.completed);
                 } else if (currentFilter === 'completed') {
                     filteredTasks = tasks.filter(task => task.completed);
+                } else if (currentFilter === 'priority') {
+                    filteredTasks = [...tasks].sort((a, b) => {
+                        const PriorityOrder =  { critical: 1, high: 2, medium: 3, low: 4 };
+                           return priorityOrder[a.priority] - priorityOrder[b.priority];
+                         });
                 }
                 
                 taskList.innerHTML = '';
